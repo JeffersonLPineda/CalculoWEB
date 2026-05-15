@@ -1,0 +1,211 @@
+:root {
+    --cyan: #002f32;
+    --magenta: #21060e;
+    --purple-list: #050a12e2;
+    --deep-blue: #00000a;
+    --dark-bg: #192175;
+    --card-bg: #ffffff17;
+    --card-bg2: #ffffffa6;
+    --card-border: #ffffff4a;
+    --text-main: #ffffff;
+    --text-secondary: #000000;
+    --text-muted: #6b6b7a;
+    --container-max: 1100px;
+}
+
+/* Buena práctica: aplicar border-box a todos los elementos para que el padding no rompa los anchos */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    background-image: linear-gradient(var(--dark-bg), var(--deep-blue));
+    min-height: 100dvh;
+    /* background-size: 100% 100%; (Removido porque suele causar saltos extraños, el degradado ya cubre todo) */
+
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-main);
+    line-height: 1.6;   
+}
+
+h1 {
+    font-size: clamp(2rem, 5vw + 1rem, 4rem);
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+h3 {
+    font-size: clamp(0.8rem, 2vw + 0.5rem, 1.2rem); /* Ajustado para que tenga un tamaño legible */
+    margin: 0;
+}
+
+h3 a {
+    text-decoration: none;
+    color: var(--text-secondary);
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* Corregido: El clamp original tenía un valor máximo (0.5vh) mucho menor al mínimo (1vw) */
+    padding: clamp(0.5rem, 2vw, 1.5rem) 2rem; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000; /* Asegura que el nav siempre esté por encima del contenido */
+}
+
+.nav-links {
+    font-size: clamp(0.8rem, 2vw + 0.5rem, 1rem);
+    list-style: none;
+    display: flex;
+    /* Corregido: El min y max de este clamp eran idénticos (0.2rem) */
+    gap: 1rem; 
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li a {
+    width: clamp(5rem, 5vw + 6rem, 10rem);
+    height: clamp(2.5rem, 3vw + 1rem, 4rem); /* Altura de botón más natural */
+
+    /* Corregido: Era background-image, pero las variables son colores (#) */
+    background-color: var(--card-bg); 
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    backdrop-filter: blur(25px); 
+    -webkit-backdrop-filter: blur(25px);
+
+    /* Los bordes en rem muy pequeños (0.02rem) se renderizan mal. Mejor usar px. */
+    border: 1px solid var(--card-border);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.902);
+
+    will-change: backdrop-filter;
+    border-radius: 2rem; 
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    background-color: var(--card-bg2);
+    color: var(--text-secondary);
+}
+
+.logo {
+    width: clamp(8rem, 10vw + 5rem, 12rem);
+    height: clamp(2.5rem, 3vw + 1rem, 4rem);
+
+    background-color: var(--card-bg2);
+    border: 1px solid var(--card-border);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.902);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    backdrop-filter: blur(25px); 
+    -webkit-backdrop-filter: blur(25px);
+    will-change: backdrop-filter;
+    border-radius: 2rem; 
+}
+
+.card-img {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.4rem;
+}
+
+.contenido {
+    width: clamp(15rem, 90vw, 50rem); 
+    min-height: 15rem; /* Cambiado a min-height para que se expanda con el texto */
+    
+    /* Corregido: Era background-image */
+    background-color: var(--card-bg); 
+    border: 1px solid var(--card-border);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.902);
+
+    /* Corregido: align-items no funciona sin display flex o grid */
+    display: flex;
+    flex-direction: column; /* Para que el h1 y p queden uno arriba del otro */
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+
+    backdrop-filter: blur(25px); 
+    -webkit-backdrop-filter: blur(25px);
+    will-change: backdrop-filter;
+    border-radius: 2rem; 
+    
+    /* Centrado horizontal de la tarjeta contenedora */
+    margin: 8rem auto 2rem auto; 
+    
+    /* Corregido: La variable --text-color no existía en el :root */
+    color: var(--text-main);
+}
+
+.contenedor-flexible {
+    display: flex;          /* Activa el modo flexible */
+    align-items: center;    /* Centra verticalmente la lista con la imagen */
+    justify-content: space-between; /* Deja espacio entre la lista y la imagen */
+    gap: 1rem;              /* Espacio de separación entre ambos */
+    margin: 1.5rem 0;
+}
+
+.contenedor-flexible ul {
+    flex: 1;                /* La lista toma el espacio disponible */
+}
+
+.img-lateral {
+    flex: 1;                /* La imagen también toma espacio proporcional */
+    max-width: 45%;         /* Limitamos el ancho para que no aplaste a la lista */
+    height: auto;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.texto-info {
+    text-align: justify;
+}
+
+@media (max-width: 425px) {
+    nav {
+        flex-direction: column;
+        gap: 1rem;
+        padding-top: 1rem;
+    }
+
+    .nav-links {
+        flex-direction: column; 
+        width: 100%;
+    }
+    
+    .nav-links li a {
+        width: 100%;       
+        text-align: center; 
+    }
+
+    .logo {
+        width: clamp(10rem, 80vw, 15rem);
+    }
+
+    .contenido {
+        margin-top: 13rem; /* Más margen arriba en móvil porque el nav es más alto al estar en columna */
+    }
+
+        .contenedor-flexible {
+        flex-direction: column; /* Cambia de fila a columna en pantallas pequeñas */
+    }
+    
+    .img-lateral {
+        max-width: 100%;    /* La imagen ocupa todo el ancho en móvil */
+    }
+}
