@@ -166,14 +166,69 @@ nav {
 
 .img-lateral {
     flex: 1;                /* La imagen también toma espacio proporcional */
-    max-width: 45%;         /* Limitamos el ancho para que no aplaste a la lista */
+    max-width: 50%;         /* Limitamos el ancho para que no aplaste a la lista */
     height: auto;
     border-radius: 1rem;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-.texto-info {
-    text-align: justify;
+/* ==========================================
+   Contenedor Mixto (Estructura y Layout pura)
+   ========================================== */
+
+/* Contenedor Principal: Recibe el efecto cristal sin alterar textos */
+.contenedor-mixto {
+    width: clamp(15rem, 90vw, var(--container-max)); 
+    max-width: 800px; 
+    margin: 2rem auto; 
+    padding: 2rem;
+    
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 2rem; 
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.902);
+    
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    will-change: backdrop-filter;
+    
+    /* Hereda el color principal automáticamente */
+    color: var(--text-main); 
+}
+
+.contenedor-mixto h2 {
+    text-align: center;
+    margin-top: 0;      /* Elimina espacios sobrantes arriba */
+    margin-bottom: 1.5rem; /* Deja un espacio armónico con los párrafos */
+}
+
+/* Separación estructural entre los bloques internos */
+.seccion-textos,
+.seccion-lista {
+    margin-bottom: 1.5rem;
+}
+
+/* Lista: Solo sangría estructural */
+.seccion-lista {
+    padding-left: 1.5rem;
+}
+
+/* Galería de Imágenes: Matriz 2x2 */
+.galeria-imagenes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 1rem; 
+}
+
+/* Fotos: Estructura responsiva que hace juego con tu .img-lateral */
+.galeria-imagenes img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    aspect-ratio: 1 / 1; 
+    border-radius: 1rem; 
+    border: 1px solid var(--card-border);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 @media (max-width: 425px) {
@@ -201,11 +256,16 @@ nav {
         margin-top: 13rem; /* Más margen arriba en móvil porque el nav es más alto al estar en columna */
     }
 
-        .contenedor-flexible {
+    .contenedor-flexible {
         flex-direction: column; /* Cambia de fila a columna en pantallas pequeñas */
     }
     
     .img-lateral {
         max-width: 100%;    /* La imagen ocupa todo el ancho en móvil */
+    }
+
+    .contenedor-mixto .galeria-imagenes {
+        grid-template-columns: 1fr; /* Pasa de 2 columnas a 1 sola fila en móviles */
+        gap: 1rem;
     }
 }
